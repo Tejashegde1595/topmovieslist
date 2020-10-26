@@ -8,7 +8,7 @@ using apifreader.Models;
 
 namespace apifreader.DataAccessLayer
 {
-    public class Repository : IRepository
+    public partial class Repository : IRepository
     {
         private readonly gothamEntities1 _gothamEntities1;
         public Repository(gothamEntities1 gothamEntities1)
@@ -48,6 +48,21 @@ namespace apifreader.DataAccessLayer
             var password = new SqlParameter("@password", user.password);
             var newpassword = new SqlParameter("@newpassword", user.newPassword);
             _gothamEntities1.Database.ExecuteSqlCommand("Exec changePassword @username,@password,@newpassword", username, password,newpassword);
+        }
+
+        public IEnumerable<Movie> getAllMovies()
+        {
+            IEnumerable<Movie> movies = _gothamEntities1.Database.SqlQuery<Movie>("Select * from config.movies").ToList<Movie>();
+            return movies;
+        
+        }
+
+        public String Login(User user)
+        {
+            var username = new SqlParameter("@username", user.username);
+            var password = new SqlParameter("@password", user.password);
+            String key=_gothamEntities1.Database.SqlQuery<String>("Exec login @username,@password", username, password).FirstOrDefault<String>();
+            return key;
         }
     }
 }

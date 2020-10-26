@@ -30,7 +30,7 @@ namespace apifreader.Controllers
                 }
                 else
                 {
-                    return Ok("No results Found");
+                    return Ok("No Results Found");
                 }
             } catch(Exception e)
             {

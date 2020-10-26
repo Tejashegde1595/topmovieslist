@@ -18,5 +18,9 @@ namespace apifreader.DataAccessLayer
 
         void ChangePassword(User user);
 
+        string Login(User user);
+
+        IEnumerable<Movie> getAllMovies();
+
     }
 }
